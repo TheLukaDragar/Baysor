@@ -1,3 +1,5 @@
+using Colors
+
 function estimate_gene_structure_embedding(df_spatial::DataFrame, gene_names::Vector{String}, confidence::Vector{Float64}=df_spatial.confidence)
     adj_list = build_molecule_graph(df_spatial, filter=false)
     cor_mat = pairwise_gene_spatial_cor(df_spatial.gene, confidence, adj_list);
