@@ -63,8 +63,6 @@ function run_segmentation(
 
     @info "Processing complete."
 
-    # Extract results
-
     segmented_df, cell_stat_df, cm = get_segmentation_results(bm_data, gene_names; run_id)
 
     # @info "Estimating local colors"
@@ -73,7 +71,7 @@ function run_segmentation(
     # )
 
     @info "Using fixed colors instead of estimating local colors"
-    gene_colors = fill(RGB(0.5, 0.5, 0.5), size(bm_data.x, 2)) # Using a neutral gray color for all points
+    gene_colors = fill(RGB(0.5, 0.5, 0.5), nrow(segmented_df)) # Using a neutral gray color for all rows in segmented_df
     segmented_df[!, :ncv_color] = "#" .* Colors.hex.(gene_colors)
 
     poly_joined, polygons = nothing, nothing
