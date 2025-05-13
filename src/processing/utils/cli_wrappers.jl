@@ -65,10 +65,13 @@ function run_segmentation(
 
     segmented_df, cell_stat_df, cm = get_segmentation_results(bm_data, gene_names; run_id)
 
-    @info "Estimating local colors"
-    gene_colors = gene_composition_colors(
-        bm_data.x, plot_opts.gene_composition_neigborhood; method=Symbol(plot_opts.ncv_method)
-    )
+    # @info "Estimating local colors"
+    # gene_colors = gene_composition_colors(
+    #     bm_data.x, plot_opts.gene_composition_neigborhood; method=Symbol(plot_opts.ncv_method)
+    # )
+
+    @info "Using fixed colors instead of estimating local colors"
+    gene_colors = fill(RGB(0.5, 0.5, 0.5), size(bm_data.x, 2)) # Using a neutral gray color for all points
     segmented_df[!, :ncv_color] = "#" .* Colors.hex.(gene_colors)
 
     poly_joined, polygons = nothing, nothing
